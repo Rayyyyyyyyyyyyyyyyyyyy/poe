@@ -1,0 +1,36 @@
+
+.filter-form {
+  @apply p-6 w-full;
+
+  .is-required:not(.is-no-asterisk).asterisk-left > .el-form-item__label:before{
+    content: '' !important;
+  }
+  .is-required:not(.is-no-asterisk).asterisk-left > .el-form-item__label:after{
+    content: '*';
+    color: var(--el-color-danger);
+    @apply ml-1;
+  }
+  .el-form-item{
+    @apply mb-4;
+    @apply items-center sm:items-start;
+  }
+  .el-form-item__label{
+    @apply w-24 text-base font-bold text-text;
+  }
+  .el-date-editor.el-input {
+    @apply w-full;
+  }
+  .range-container {
+    @apply flex items-center gap-2 w-full;
+    @apply flex-col sm:flex-row;
+
+    .range-separator {
+      @apply text-base flex-shrink-0;
+    }
+  }
+
+  .sub-title {
+    @apply px-4 py-2 mb-4  font-bold  border-b text-20;
+    margin-left: -24px;
+  }
+}

@@ -1,0 +1,22 @@
+.href-text {
+  @apply cursor-pointer text-blue-10 font-bold;
+}
+
+.item-col {
+  @apply flex flex-col;
+}
+
+
+.more-icon {
+  @apply text-2xl ml-3 text-blue-10 cursor-pointer;
+  @apply w-12 h-8 flex items-center justify-center;
+
+  &:focus-visible {
+    @apply outline-none;
+  }
+}
+
+.el-button+.el-button {
+  @apply ml-[2px] #{!important};
+
+}

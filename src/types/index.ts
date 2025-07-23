@@ -1,7 +1,7 @@
 import type { VNode } from 'vue'
 import type { TableColumnCtx } from 'element-plus'
 
-export type SortChangValue<T> = { column: TableColumnCtx<T>[]; order: string; prop: string }
+export type SortChangValue<T extends Record<string, unknown>> = { column: TableColumnCtx<T>[]; order: string; prop: string }
 
 /** 表格列表請求參數 */
 export type TableListReq = {

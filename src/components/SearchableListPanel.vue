@@ -1,22 +1,15 @@
 <script setup lang="ts">
-import { toRefs } from 'vue'
+import { toRefs, computed } from 'vue'
 
 import { useRoute } from 'vue-router'
 import type { Pager } from 'src/types'
-import BaseBtn from '@/components/BaseBtn.vue'
 import MainPanel from '@/components/MainPanel.vue'
-import SearchBar from '@/components/SearchBar.vue'
-import SvgIcon from '@/components/SvgIcon.vue'
+import FilterBtn from '@/components/FilterBtn.vue'
 
 export interface PropsType {
   title: string
   pagination: Pager
   showBack?: boolean | string | object
-  showSearch?: boolean
-  showEdit?: boolean
-  showFilter?: boolean
-  showDefaultSearch?: boolean
-  dataCy?: string
   badgeValue?: number
 }
 
@@ -49,29 +42,11 @@ const route = useRoute()
 <template>
   <main-panel :title="props.title" :show-back="showBack">
     <template #searchBar>
-      <search-bar
-        :show-filter="showFilter"
-        :show-search="showSearch"
-        :badge-value="badgeValue"
-        @keydown:enter="search"
-        @update:clear="clearable"
-      >
-        <template #button>
-          <slot name="firstButton"></slot>
-          <slot name="customButton" v-if="showEdit">
-            <base-btn class="edit-btn" type="primary">
-              <svg-icon name="icon-edit" />
-              <p>編輯</p>
-            </base-btn>
-            <base-btn text="顯示" type="primary" />
-          </slot>
-          <slot name="lastButton"></slot>
-        </template>
-        <template #filterBody>
-          <slot name="filterDrawBody"></slot>
-        </template>
-      </search-bar>
+      <filter-btn :badge-value="badgeValue">
+        <slot name="filterDrawBody" />
+      </filter-btn>
     </template>
+
     <template #main>
       <slot name="main" />
     </template>
@@ -91,27 +66,4 @@ const route = useRoute()
   </main-panel>
 </template>
 
-<style scoped lang="scss">
-.edit-btn {
-  @apply fill-blue-10;
-  p {
-    @apply text-blue-10 ml-2 font-bold;
-  }
-
-  &:hover {
-    @apply fill-white;
-    p {
-      @apply text-white;
-    }
-  }
-  &:disabled {
-    @apply bg-white opacity-50;
-    &:hover {
-      @apply bg-white fill-blue-10;
-      p {
-        @apply text-blue-10;
-      }
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>

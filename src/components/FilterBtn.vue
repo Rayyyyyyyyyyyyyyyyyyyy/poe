@@ -16,8 +16,7 @@ function onClickBtn() {
   showDrawer.value = !showDrawer.value
 }
 
-const resetValue = () => {
-}
+const resetValue = () => {}
 const computedDrawerSize = computed(() => {
   if (width.value > 1200) {
     return '30%'
@@ -63,7 +62,7 @@ const submitFilter = () => {
     <template #footer>
       <base-btn type="primary" class="filter-btn" @click="submitFilter" data-cy="filter-submit-btn">
         <svg-icon name="icon-search" :width="16"></svg-icon>
-        <p class="ml-2 text-base">{{ $t('共用.查詢') }}</p>
+        <p class="ml-2 text-base">查詢</p>
       </base-btn>
     </template>
   </el-drawer>

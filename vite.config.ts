@@ -23,12 +23,19 @@ export default defineConfig({
     }),
     createSvgIconsPlugin({
       iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
-      symbolId: 'icon-[name]'
-    })
+      symbolId: 'icon-[name]',
+    }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/assets/styles/element/index.scss" as *;`,
+      },
+    },
+  },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })

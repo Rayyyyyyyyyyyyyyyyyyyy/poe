@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {  reactive } from 'vue'
-import SearchableListPanel from "@/components/SearchableListPanel.vue";
-
+import { reactive } from 'vue'
+import SearchableListPanel from '@/components/SearchableListPanel.vue'
+import SortTable from '@/components/SortTable.vue'
 
 const state = reactive({
   loading: false,
@@ -9,27 +9,21 @@ const state = reactive({
   dialogVisible: false,
 })
 
-const columns = [
+const columns = []
 
-]
-
-const handleCellClick = () => {
-
-}
-const handleSelectRow = (selectList) => {
-  console.log('selectList', selectList)
-}
+const handleCellClick = () => {}
+const handleSelectRow = (selectList) => {}
 const handleSubmit = () => {}
 </script>
 
 <template>
   <searchable-list-panel
-    title="Turnkey 路徑設定"
+    title=""
     show-default-search
     :pagination="{
       page: 0,
       limit: 0,
-      totalCount: 0
+      totalCount: 0,
     }"
   >
     <template #main>
@@ -43,8 +37,6 @@ const handleSubmit = () => {}
       />
     </template>
   </searchable-list-panel>
-
-
 </template>
 
 <style scoped lang="scss"></style>

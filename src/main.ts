@@ -11,12 +11,12 @@ import '@/assets/styles/index.css'
 import '@/assets/styles/tailwind.scss'
 import 'element-plus/dist/index.css'
 import svgIconPlugin from '@/plugins/svgIcon'
-
+import 'virtual:svg-icons-register'
 
 const app = createApp(App)
 
 app.use(ElementPlus, {
-  locale: zhTw
+  locale: zhTw,
 })
 app.use(createPinia())
 app.use(router)

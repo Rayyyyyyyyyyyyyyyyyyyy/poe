@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const props = withDefaults(
+withDefaults(
   defineProps<{
     title?: string
     showBack?: boolean | string | object
@@ -8,13 +8,12 @@ const props = withDefaults(
   {
     title: '',
     showBack: false,
-    depth: 1
-  }
+    depth: 1,
+  },
 )
 </script>
 
 <template>
-
   <el-scrollbar class="panel-scrollbar">
     <div v-if="$slots.searchBar" class="px-4 pt-1.5">
       <slot name="searchBar" />

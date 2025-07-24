@@ -1,5 +1,4 @@
-<script setup lang="ts" generic="T">
-import { defineProps, defineEmits } from 'vue'
+<script setup lang="ts" generic="T extends Record<string, unknown>">
 import type { VNode } from 'vue'
 import type { TableColumnCtx } from 'element-plus'
 import type { SortChangValue, TableColumn } from 'src/types'

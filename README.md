@@ -1,223 +1,541 @@
-# Template
+# 🚀 @your-org/plugin-name
 
-基於 Vue 3 + TypeScript + Element Plus 的前端應用程式模板
+> 一個功能強大、類型安全且易於使用的 npm 插件開發模板
+
+[![Build Status](https://github.com/your-org/plugin-name/workflows/CI/badge.svg)](https://github.com/your-org/plugin-name/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/your-org/plugin-name)](https://codecov.io/gh/your-org/plugin-name)
+[![npm version](https://img.shields.io/npm/v/@your-org/plugin-name)](https://www.npmjs.com/package/@your-org/plugin-name)
+[![npm downloads](https://img.shields.io/npm/dm/@your-org/plugin-name)](https://www.npmjs.com/package/@your-org/plugin-name)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## ✨ 特色功能
 
-- 🚀 **現代化技術棧**: Vue 3 + TypeScript + Vite
-- 🎨 **豐富 UI 組件**: Element Plus + Tailwind CSS + SCSS
-- 📱 **響應式設計**: 支援多種螢幕尺寸
-- 🧪 **完整測試方案**: Vitest 單元測試 + Cypress E2E 測試
-- 📦 **自動化導入**: 自動導入 Vue API 和組件
-- 🎯 **TypeScript 支援**: 完整的類型定義和類型檢查
-- 🔄 **狀態管理**: Pinia 狀態管理
-- 🛠️ **開發工具**: ESLint + Prettier 代碼規範
+<table>
+<tr>
+<td width="50%">
 
-## 🛠️ 技術棧
+### 🎯 **開發體驗**
+- ✅ **TypeScript 原生支援** - 完整的類型推斷和 IntelliSense
+- ✅ **零配置啟動** - 開箱即用，無需複雜設定
+- ✅ **熱重載開發** - 快速的開發反饋循環
+- ✅ **現代 ES 模組** - 支援 ESM 和 CommonJS
 
-- **前端框架**: Vue 3.5
-- **開發語言**: TypeScript 5.8
-- **構建工具**: Vite 6.2
-- **UI 組件庫**: Element Plus 2.9
-- **樣式方案**: Tailwind CSS + SCSS
-- **狀態管理**: Pinia 3.0
-- **路由管理**: Vue Router 4.5
-- **測試框架**: Vitest + Cypress
-- **代碼規範**: ESLint + Prettier
+</td>
+<td width="50%">
 
-## 📁 項目結構
+### 🛡️ **品質保證**
+- ✅ **100% 測試覆蓋** - Vitest 驅動的完整測試套件
+- ✅ **自動化 CI/CD** - GitHub Actions 持續整合
+- ✅ **代碼品質檢查** - ESLint + Prettier 強制規範
+- ✅ **多版本支援** - Node.js 16/18/20 兼容
 
-```
-template/
-├── src/
-│   ├── assets/           # 靜態資源
-│   │   ├── images/       # 圖片資源
-│   │   └── styles/       # 樣式文件
-│   ├── components/       # 通用組件
-│   │   ├── BaseBtn.vue           # 基礎按鈕組件
-│   │   ├── BaseInput.vue         # 基礎輸入框組件
-│   │   ├── BaseTable.vue         # 基礎表格組件
-│   │   ├── SortTable.vue         # 可排序表格組件
-│   │   └── ...
-│   ├── layout/           # 佈局組件
-│   ├── router/           # 路由配置
-│   ├── stores/           # 狀態管理
-│   ├── types/            # TypeScript 類型定義
-│   ├── views/            # 頁面視圖
-│   └── plugins/          # 插件配置
-├── cypress/              # E2E 測試
-├── public/               # 公共資源
-└── ...配置文件
-```
+</td>
+</tr>
+</table>
 
-## 🚀 快速開始
-
-### 環境要求
-
-- Node.js >= 18
-- npm >= 8 或 yarn >= 1.22
-
-### 安裝依賴
+## 📦 快速安裝
 
 ```bash
 # 使用 npm
+npm install @your-org/plugin-name
+
+# 使用 yarn  
+yarn add @your-org/plugin-name
+
+# 使用 pnpm
+pnpm add @your-org/plugin-name
+```
+
+## 🚀 30 秒快速開始
+
+```typescript
+import { Plugin, createPlugin } from '@your-org/plugin-name'
+
+// 🎯 方式一：類別實例化
+const plugin = new Plugin({
+  name: 'my-awesome-plugin',
+  debug: true
+})
+
+await plugin.init()
+const result = await plugin.execute({ data: 'Hello World!' })
+console.log(result.data) // { processed: true, input: { data: 'Hello World!' } }
+
+// 🎯 方式二：工廠函數（推薦）
+const quickPlugin = createPlugin({ name: 'quick-start' })
+const quickResult = await quickPlugin.execute('test-data')
+```
+
+## 📋 目錄
+
+- [安裝與使用](#-快速安裝)
+- [API 文檔](#-api-文檔)
+- [進階配置](#-進階配置)
+- [最佳實踐](#-最佳實踐)
+- [故障排除](#-故障排除)
+- [開發指南](#️-開發指南)
+- [貢獻指南](#-貢獻指南)
+
+## 📚 API 文檔
+
+### Plugin 類別
+
+#### 建構函數
+
+```typescript
+new Plugin(options?: PluginOptions)
+```
+
+**參數說明：**
+
+| 參數 | 類型 | 預設值 | 說明 |
+|------|------|--------|------|
+| `name` | `string` | `'default-plugin'` | 插件名稱 |
+| `debug` | `boolean` | `false` | 開啟調試模式 |
+| `config` | `Record<string, unknown>` | `{}` | 自訂配置物件 |
+
+#### 核心方法
+
+##### `init(): Promise<PluginResult>`
+
+初始化插件，執行必要的設定程序。
+
+```typescript
+const plugin = new Plugin({ name: 'my-plugin' })
+const result = await plugin.init()
+
+if (result.success) {
+  console.log('✅ 插件初始化成功')
+} else {
+  console.error('❌ 初始化失敗:', result.message)
+}
+```
+
+##### `execute(input: unknown): Promise<PluginResult>`
+
+執行插件的主要功能邏輯。
+
+```typescript
+// 支援任意類型的輸入
+const result = await plugin.execute({
+  action: 'process',
+  data: [1, 2, 3, 4, 5],
+  options: { format: 'json' }
+})
+
+console.log(result.success) // true
+console.log(result.data)    // 處理後的結果
+```
+
+##### `getInfo(): { name: string; version: string }`
+
+獲取插件的基本資訊。
+
+```typescript
+const info = plugin.getInfo()
+console.log(`插件名稱: ${info.name}`)
+console.log(`版本: ${info.version}`)
+```
+
+### 工廠函數
+
+#### `createPlugin(options?: PluginOptions): Plugin`
+
+快速創建插件實例的便利函數。
+
+```typescript
+// 快速創建
+const plugin = createPlugin()
+
+// 帶配置創建
+const configuredPlugin = createPlugin({
+  name: 'configured-plugin',
+  debug: process.env.NODE_ENV === 'development'
+})
+```
+
+### 工具函數
+
+#### `isValidInput(input: unknown): boolean`
+
+檢查輸入值是否有效（非 null 且非 undefined）。
+
+```typescript
+import { isValidInput } from '@your-org/plugin-name'
+
+const data = getUserInput()
+if (isValidInput(data)) {
+  await plugin.execute(data)
+} else {
+  console.warn('無效的輸入數據')
+}
+```
+
+## ⚙️ 進階配置
+
+### 環境變數支援
+
+```bash
+# .env 文件
+PLUGIN_DEBUG=true
+PLUGIN_TIMEOUT=5000
+PLUGIN_RETRY_COUNT=3
+```
+
+```typescript
+const plugin = new Plugin({
+  name: 'env-aware-plugin',
+  debug: process.env.PLUGIN_DEBUG === 'true',
+  config: {
+    timeout: parseInt(process.env.PLUGIN_TIMEOUT || '3000'),
+    retryCount: parseInt(process.env.PLUGIN_RETRY_COUNT || '1')
+  }
+})
+```
+
+### 自訂配置範例
+
+```typescript
+interface CustomConfig {
+  apiEndpoint: string
+  timeout: number
+  retries: number
+  authentication: {
+    type: 'bearer' | 'basic'
+    token: string
+  }
+}
+
+const plugin = new Plugin({
+  name: 'api-client-plugin',
+  debug: true,
+  config: {
+    apiEndpoint: 'https://api.example.com',
+    timeout: 10000,
+    retries: 3,
+    authentication: {
+      type: 'bearer',
+      token: process.env.API_TOKEN
+    }
+  } as CustomConfig
+})
+```
+
+### 錯誤處理最佳實踐
+
+```typescript
+async function robustPluginUsage() {
+  const plugin = createPlugin({ name: 'robust-plugin' })
+  
+  try {
+    // 初始化
+    const initResult = await plugin.init()
+    if (!initResult.success) {
+      throw new Error(`初始化失敗: ${initResult.message}`)
+    }
+    
+    // 執行
+    const executeResult = await plugin.execute(inputData)
+    if (!executeResult.success) {
+      throw new Error(`執行失敗: ${executeResult.message}`)
+    }
+    
+    return executeResult.data
+  } catch (error) {
+    console.error('插件使用錯誤:', error)
+    // 執行清理或回退邏輯
+    throw error
+  }
+}
+```
+
+## 🎯 最佳實踐
+
+### 1. 插件生命週期管理
+
+```typescript
+class MyService {
+  private plugin: Plugin
+  
+  async initialize() {
+    this.plugin = createPlugin({
+      name: 'service-plugin',
+      debug: process.env.NODE_ENV !== 'production'
+    })
+    
+    await this.plugin.init()
+  }
+  
+  async processData(data: unknown) {
+    if (!this.plugin) {
+      throw new Error('服務未初始化')
+    }
+    
+    return await this.plugin.execute(data)
+  }
+  
+  async shutdown() {
+    // 執行清理邏輯
+    console.log('服務正在關閉...')
+  }
+}
+```
+
+### 2. 批量處理
+
+```typescript
+async function batchProcess(items: unknown[]) {
+  const plugin = createPlugin({ name: 'batch-processor' })
+  await plugin.init()
+  
+  const results = await Promise.allSettled(
+    items.map(item => plugin.execute(item))
+  )
+  
+  const successful = results
+    .filter((result): result is PromiseFulfilledResult<PluginResult> => 
+      result.status === 'fulfilled' && result.value.success
+    )
+    .map(result => result.value.data)
+  
+  const failed = results
+    .filter(result => 
+      result.status === 'rejected' || 
+      (result.status === 'fulfilled' && !result.value.success)
+    )
+  
+  return { successful, failed, total: items.length }
+}
+```
+
+### 3. 配置驗證
+
+```typescript
+import Joi from 'joi' // 或其他驗證庫
+
+const configSchema = Joi.object({
+  name: Joi.string().required(),
+  debug: Joi.boolean().default(false),
+  config: Joi.object({
+    timeout: Joi.number().min(1000).max(30000).default(5000),
+    retries: Joi.number().min(0).max(5).default(1)
+  }).default({})
+})
+
+function createValidatedPlugin(options: PluginOptions) {
+  const { error, value } = configSchema.validate(options)
+  if (error) {
+    throw new Error(`配置驗證失敗: ${error.message}`)
+  }
+  
+  return new Plugin(value)
+}
+```
+
+## 🐛 故障排除
+
+### 常見問題
+
+<details>
+<summary><strong>Q: 插件初始化失敗怎麼辦？</strong></summary>
+
+**A:** 檢查以下幾點：
+1. 確認 Node.js 版本 >= 16
+2. 檢查配置參數是否正確
+3. 開啟 debug 模式查看詳細錯誤
+
+```typescript
+const plugin = new Plugin({ 
+  name: 'debug-plugin', 
+  debug: true  // 開啟調試模式
+})
+```
+</details>
+
+<details>
+<summary><strong>Q: TypeScript 類型錯誤如何解決？</strong></summary>
+
+**A:** 確保正確導入類型：
+```typescript
+import { Plugin, type PluginOptions, type PluginResult } from '@your-org/plugin-name'
+```
+</details>
+
+<details>
+<summary><strong>Q: 如何處理異步操作？</strong></summary>
+
+**A:** 所有插件方法都返回 Promise，使用 async/await：
+```typescript
+async function usePlugin() {
+  const plugin = createPlugin()
+  await plugin.init()  // 等待初始化完成
+  const result = await plugin.execute(data)  // 等待執行完成
+  return result
+}
+```
+</details>
+
+### 調試技巧
+
+```typescript
+// 1. 開啟詳細日誌
+const plugin = new Plugin({
+  name: 'debug-plugin',
+  debug: true,
+  config: {
+    logLevel: 'verbose'
+  }
+})
+
+// 2. 檢查插件狀態
+console.log('插件信息:', plugin.getInfo())
+
+// 3. 驗證輸入數據
+import { isValidInput } from '@your-org/plugin-name'
+console.log('輸入是否有效:', isValidInput(yourData))
+```
+
+## 🛠️ 開發指南
+
+### 本地開發環境
+
+```bash
+# 克隆專案
+git clone https://github.com/your-org/plugin-name.git
+cd plugin-name
+
+# 安裝依賴
 npm install
 
-# 或使用 yarn
-yarn install
-```
-
-### 開發環境
-
-```bash
-# 啟動開發服務器
+# 開發模式（文件監聽）
 npm run dev
 
-# 訪問 http://localhost:5173
+# 運行測試
+npm test
+
+# 測試覆蓋率
+npm run test:coverage
 ```
 
-### 構建部署
+### 專案結構說明
 
-```bash
-# 類型檢查
-npm run type-check
-
-# 構建生產版本
-npm run build
-
-# 預覽生產版本
-npm run preview
+```
+📁 plugin-name/
+├── 📂 src/                    # 源碼目錄
+│   ├── 📄 index.ts            # 主入口文件
+│   └── 📄 utils.ts            # 工具函數
+├── 📂 test/                   # 測試目錄
+│   ├── 📄 index.test.ts       # 主功能測試
+│   └── 📄 utils.test.ts       # 工具函數測試
+├── 📂 examples/               # 使用範例
+│   └── 📄 basic-usage.js      # 基本使用範例
+├── 📂 lib/                    # 構建輸出（自動生成）
+├── 📂 .github/workflows/      # CI/CD 配置
+├── 📄 package.json            # 包配置
+├── 📄 tsconfig.json           # TypeScript 配置
+├── 📄 vite.config.ts          # 構建配置
+└── 📄 vitest.config.ts        # 測試配置
 ```
 
-## 🧪 測試
+### 開發腳本說明
 
-### 單元測試
+| 命令 | 說明 |
+|------|------|
+| `npm run dev` | 開發模式，監聽文件變更自動重建 |
+| `npm run build` | 構建生產版本 |
+| `npm run test` | 運行測試套件 |
+| `npm run test:coverage` | 生成測試覆蓋率報告 |
+| `npm run lint` | 代碼檢查 |
+| `npm run lint:fix` | 自動修復代碼問題 |
+| `npm run format` | 格式化代碼 |
+| `npm run type-check` | TypeScript 類型檢查 |
 
-```bash
-# 運行單元測試
-npm run test:unit
+### 添加新功能
 
-# 監聽模式運行測試
-npm run test:unit -- --watch
-```
-
-### E2E 測試
-
-> ⚠️ **注意**: 運行 E2E 測試前需要先登入獲取 token [[memory:2694165]]
-
-```bash
-# 開發環境 E2E 測試（推薦）
-npm run test:e2e:dev
-
-# 生產環境 E2E 測試
-npm run build
-npm run test:e2e
-```
-
-## 🔧 開發指南
-
-### 代碼規範
-
-```bash
-# 代碼檢查和修復
-npm run lint
-
-# 代碼格式化
-npm run format
-```
-
-### 組件開發
-
-項目提供了多個基礎組件，支援 TypeScript 泛型：
-
+1. **新增功能到 `src/index.ts`**
 ```typescript
-// 表格組件範例
-<BaseTable<UserData>
-  :data="userData"
-  :columns="tableColumns"
-  :loading="loading"
-  @selection-change="handleSelectionChange"
-/>
-```
-
-### 類型定義
-
-在 `src/types/index.ts` 中定義了通用類型：
-
-```typescript
-// 表格列配置
-export interface TableColumn<T = Record<string, unknown>> {
-  prop?: string
-  label: string
-  width?: number | string
-  sortable?: boolean | 'custom'
-  formatter?: (row: T) => string
-}
-
-// 排序變更事件
-export type SortChangValue<T extends Record<string, unknown>> = {
-  column: TableColumnCtx<T>[]
-  order: string
-  prop: string
+export class Plugin {
+  // 新增方法
+  async newFeature(input: string): Promise<string> {
+    // 實現邏輯
+    return `processed: ${input}`
+  }
 }
 ```
 
-### 樣式開發
-
-項目支援多種樣式方案：
-
-- **Tailwind CSS**: 原子化 CSS 框架
-- **SCSS**: 支援變量、混入等進階功能
-- **Element Plus**: UI 組件庫主題自定義
-
-## 📝 開發建議
-
-### IDE 設定
-
-推薦使用 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 擴展
-
-### 自動導入
-
-項目配置了自動導入功能，無需手動導入常用 API：
-
+2. **添加對應測試到 `test/index.test.ts`**
 ```typescript
-// 自動導入 Vue API
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-// 自動導入路由
-const router = useRouter()
-const route = useRoute()
+describe('newFeature', () => {
+  it('should process input correctly', async () => {
+    const plugin = new Plugin()
+    const result = await plugin.newFeature('test')
+    expect(result).toBe('processed: test')
+  })
+})
 ```
 
-### 組件註冊
+3. **更新 README 和範例**
 
-使用 `unplugin-vue-components` 自動註冊組件，無需手動導入：
+## 🤝 貢獻指南
 
-```vue
-<template>
-  <!-- 自動識別並導入 -->
-  <el-button>按鈕</el-button>
-  <BaseTable />
-</template>
+我們歡迎所有形式的貢獻！請閱讀以下指南：
+
+### 🚀 快速開始貢獻
+
+1. **Fork 專案** 
+2. **創建功能分支**: `git checkout -b feature/amazing-feature`
+3. **提交變更**: `git commit -m 'feat: add amazing feature'`
+4. **推送分支**: `git push origin feature/amazing-feature`
+5. **開啟 Pull Request**
+
+### 📝 提交規範
+
+我們使用 [Conventional Commits](https://www.conventionalcommits.org/) 規範：
+
+```bash
+feat: 新功能
+fix: 錯誤修復
+docs: 文檔更新
+style: 代碼格式調整
+refactor: 代碼重構
+test: 測試相關
+chore: 建構工具或輔助工具的變動
 ```
 
-## 📄 相關文檔
+### ✅ 貢獻檢查清單
 
-- [Vue 3 文檔](https://vuejs.org/)
-- [Element Plus 文檔](https://element-plus.org/)
-- [Tailwind CSS 文檔](https://tailwindcss.com/)
-- [Vite 文檔](https://vite.dev/)
-- [TypeScript 文檔](https://www.typescriptlang.org/)
+- [ ] 代碼通過所有測試 (`npm test`)
+- [ ] 代碼符合 linting 規範 (`npm run lint`)
+- [ ] 已添加相應的測試用例
+- [ ] 更新了相關文檔
+- [ ] 提交信息符合規範
 
-## 🤝 參與貢獻
+## 📄 授權條款
 
-1. Fork 本項目
-2. 創建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 開啟 Pull Request
+本專案採用 [MIT License](LICENSE) 授權條款。
 
-## 📜 授權條款
+## 🔗 相關連結
 
-本項目採用 MIT 授權條款 - 查看 [LICENSE](LICENSE) 文件了解詳情
+- 📖 [完整文檔](https://your-org.github.io/plugin-name)
+- 🐛 [問題回報](https://github.com/your-org/plugin-name/issues)
+- 💬 [討論區](https://github.com/your-org/plugin-name/discussions)
+- 📦 [npm 套件](https://www.npmjs.com/package/@your-org/plugin-name)
+- 🔄 [更新日誌](CHANGELOG.md)
+
+## 🙏 致謝
+
+感謝所有對這個專案做出貢獻的開發者們！
+
+<a href="https://github.com/your-org/plugin-name/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=your-org/plugin-name" />
+</a>
+
+---
+
+<div align="center">
+
+**如果這個專案對您有幫助，請給它一個 ⭐ 星標！**
+
+Made with ❤️ by [Your Name](https://github.com/your-username)
+
+</div>

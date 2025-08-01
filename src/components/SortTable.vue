@@ -18,19 +18,11 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'open:transfer'): void
-  (e: 'click:download'): void
   (e: 'update:selectRow', value: T[]): void
   (e: 'click:cell', column: TableColumn<T>, row: T): void
   (e: 'click:columnSort', data: SortChangValue<T>): void
 }>()
 
-const openTransferDialog = () => {
-  emit('open:transfer')
-}
-const onDownloadClick = () => {
-  emit('click:download')
-}
 
 const handleSelectionChange = (selectList: T[]) => {
   emit('update:selectRow', selectList)
@@ -45,21 +37,8 @@ const handleColumnSortChange = (data: SortChangValue<T>) => {
 </script>
 
 <template>
-  <div class="data-table-container" data-cy="sort-table">
-    <div class="table-function-bar">
-      <div class="right">
-        <div
-          class="w-4 cursor-pointer"
-          @click="openTransferDialog"
-          data-cy="table-column-setting-btn"
-        >
-          <img class="w-full" src="@/assets/images/table-set.png" alt="" />
-        </div>
-        <div class="w-5 ml-2 cursor-pointer" @click="onDownloadClick">
-          <img class="w-full" src="@/assets/images/table-download.png" alt="" />
-        </div>
-      </div>
-    </div>
+  <div class="data-table-container" >
+
 
     <base-table
       v-loading="loading"
@@ -83,19 +62,4 @@ const handleColumnSortChange = (data: SortChangValue<T>) => {
   @apply w-full mb-4;
 }
 
-.table-function-bar {
-  @apply flex items-center h-12 bg-primary-15 px-1.5 rounded-t;
-  @apply justify-end;
-
-  .right {
-    @apply flex items-center mr-4;
-  }
-
-  .sort-btn {
-    @apply fill-blue-10;
-    &:hover {
-      @apply fill-white text-white;
-    }
-  }
-}
 </style>

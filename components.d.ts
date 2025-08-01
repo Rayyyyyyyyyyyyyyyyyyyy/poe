@@ -9,13 +9,16 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseBtn: typeof import('./src/components/BaseBtn.vue')['default']
+    BaseDialog: typeof import('./src/components/BaseDialog.vue')['default']
     BaseInput: typeof import('./src/components/BaseInput.vue')['default']
     BaseTable: typeof import('./src/components/BaseTable.vue')['default']
+    DetailDialog: typeof import('./src/components/DetailDialog.vue')['default']
     ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
@@ -44,7 +47,7 @@ declare module 'vue' {
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
   }
-  export interface GlobalDirectives {
+  export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

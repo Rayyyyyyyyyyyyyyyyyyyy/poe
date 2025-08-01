@@ -1,27 +1,24 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
 import _ from 'lodash'
 import { ElMessage } from 'element-plus'
-import BaseInput from "@/components/BaseInput.vue";
-import BaseBtn from "@/components/BaseBtn.vue";
+import BaseInput from '@/components/BaseInput.vue'
+import BaseBtn from '@/components/BaseBtn.vue'
 
 const state = reactive({
   formData: {
     client: '100',
     email: '',
-    password: ''
+    password: '',
   },
   submitLoading: false,
-  sapLoginLoading: false
+  sapLoginLoading: false,
 })
 
 const clientOptions = [
   { label: '100', value: '100' },
-  { label: '200', value: '200' }
+  { label: '200', value: '200' },
 ]
-const router = useRouter()
-
 
 const handleLogin = async () => {
   if (_.isEmpty(state.formData.password) || _.isEmpty(state.formData.email)) {
@@ -30,16 +27,11 @@ const handleLogin = async () => {
   }
 
   state.submitLoading = true
-
 }
 
-const handleForgotPassword = () => {
+const handleForgotPassword = () => {}
 
-}
-
-const handleSAPLogin = async () => {
-
-}
+const handleSAPLogin = async () => {}
 
 // 表單驗證
 const validateForm = () => {
@@ -152,7 +144,6 @@ const handleSubmit = async () => {
         <img src="../assets/images/sap-logo.png" alt="SAP" class="sap-logo" />
         <span class="sap-text">SAP PE Account</span>
       </el-button>
-
     </el-card>
   </div>
 </template>

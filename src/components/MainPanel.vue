@@ -2,13 +2,9 @@
 withDefaults(
   defineProps<{
     title?: string
-    showBack?: boolean | string | object
-    depth?: number
   }>(),
   {
     title: '',
-    showBack: false,
-    depth: 1,
   },
 )
 </script>
